@@ -2,7 +2,7 @@
 
 /**
  * При поиске отелей в нашей системе не все ограничения и параметры поиска можно применить в поисковом запросе.
- * Так же, иногда появляется запрос от бизнеса на фильтрацию из результатов некоторых отелей
+ * Так же, иногда появляется бизнес-запрос на фильтрацию из результатов некоторых отелей
  * или отдельных размещений в отдельных отелях. Мне показалось самым удачным использовать тут цепочку вызовов
  *
  * Опять же, от Лары тут только DI, но разве в бизнес-логике должно быть много фреймворка?
@@ -12,9 +12,9 @@
  */
 
 // Фильтирация параметров поисковых задач при поиске отелей
-$filtrator = app()->make(HotelsSearchBuilderFiltrator::class);
+$filtrator = app()->make(IHotelsSearchBuilderFiltrator::class);
 $builder = $filtrator->filter($builder);
 
 // Фильтирация результатов при поиске отелей
-$filtrator = app()->make(HotelsSearchResultsFiltrator::class, [$request, $this->isLite()]);
+$filtrator = app()->make(IHotelsSearchResultsFiltrator::class, [$request, $this->isLite()]);
 $results = $filtrator->filter($results);
